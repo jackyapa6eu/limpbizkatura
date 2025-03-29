@@ -1,7 +1,11 @@
 import React from 'react';
-// import Image from 'next/image';
-import '../styles/index.scss';
+import { getData } from '@/lib/firebase/getData';
+import '@/styles/index.scss';
 
-export default function Home() {
-  return <div>main page</div>;
+export default async function Home() {
+  const data = await getData('/');
+
+  console.log(data.questions);
+
+  return <div>main page{data.questions}</div>;
 }

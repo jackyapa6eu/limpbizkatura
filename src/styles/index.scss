@@ -1,6 +1,6 @@
-@import './variables';
-@import './mixins';
-@import './reset';
+@use 'variables';
+@use 'mixins';
+@use 'reset';
 
 body {
   min-height: 100vh;

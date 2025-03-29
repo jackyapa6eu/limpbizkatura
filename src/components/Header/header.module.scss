@@ -1,9 +1,8 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use '@/styles/variables';
+@use '@/styles/mixins';
 
 .container {
-  background-color: $primary-color;
-  @include flex-center;
-  color: #fff;
+  background-color: map-get(variables.$colors, background);
+  color: map-get(variables.$colors, text);
   padding: 1rem;
 }

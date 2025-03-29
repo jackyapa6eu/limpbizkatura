@@ -4,11 +4,6 @@
   align-items: center;
 }
 
-@mixin default-paddings {
-  padding-right: var(--gap_desktop_xxxl);
-  padding-left: var(--gap_desktop_xxxl);
-}
-
 @mixin desktop-lg {
   @media screen and (max-width: 1920px) {
     @content;
