@@ -1,0 +1,17 @@
+@import './variables';
+@import './mixins';
+@import './reset';
+
+body {
+  min-height: 100vh;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
