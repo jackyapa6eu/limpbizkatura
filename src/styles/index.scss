@@ -2,8 +2,13 @@
 @use 'mixins';
 @use 'reset';
 
+:root {
+  --font-family: var(--font-geist-mono), monospace;
+}
+
 body {
   min-height: 100vh;
+  font-family: var(--font-geist-mono), monospace;
 }
 
 button {
@@ -15,3 +20,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+[class^='ant-'], [class*=' ant-'] {
+  font-family: var(--font-family), monospace !important;
+}
+

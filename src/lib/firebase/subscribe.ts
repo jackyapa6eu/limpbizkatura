@@ -1,5 +1,5 @@
+import { onValue, ref } from 'firebase/database';
 import { database } from './index';
-import { ref, onValue } from 'firebase/database';
 
 export function subscribeToData(path: string, callback: (data: any) => void) {
   const dbRef = ref(database, path);

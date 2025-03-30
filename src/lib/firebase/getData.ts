@@ -1,5 +1,5 @@
+import { get, ref } from 'firebase/database';
 import { database } from './index';
-import { ref, get } from 'firebase/database';
 
 export async function getData(path: string) {
   const dbRef = ref(database, path);

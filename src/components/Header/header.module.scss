@@ -1,8 +1,9 @@
+@use 'sass:map';
 @use '@/styles/variables';
 @use '@/styles/mixins';
 
 .container {
-  background-color: map-get(variables.$colors, background);
-  color: map-get(variables.$colors, text);
+  background-color: map.get(variables.$colors, background);
+  color: map.get(variables.$colors, text);
   padding: 1rem;
 }

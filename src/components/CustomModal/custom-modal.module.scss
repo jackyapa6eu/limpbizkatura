@@ -1,0 +1,20 @@
+.modal {
+  max-width: 98vw !important;
+  max-height: 98vh !important;
+  overflow-y: auto;
+
+  &_size {
+    &_auto {
+      width: max-content !important;
+    }
+    &_small {
+      width: 360px !important;
+    }
+    &_medium {
+      width: 520px !important;
+    }
+    &_large {
+      width: 1024px !important;
+    }
+  }
+}

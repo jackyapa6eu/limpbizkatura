@@ -1,51 +1,40 @@
-import React, { FC } from 'react';
+import { HeaderAuth } from '@/components';
 import Link from 'next/link';
+import React, { FC } from 'react';
 import styles from './header.module.scss';
 
 export const Header: FC = () => {
   return (
     <header className={styles.container}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <div>
         <h1 style={{ margin: 0 }}>Мой Сайт</h1>
         <nav>
-          <ul
-            style={{
-              listStyle: 'none',
-              margin: 0,
-              padding: 0,
-              display: 'flex',
-              gap: '1rem',
-            }}
-          >
+          <ul>
             <li>
               <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>
                 Главная
               </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/about"
                 style={{ color: '#fff', textDecoration: 'none' }}
               >
                 О нас
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/contact"
                 style={{ color: '#fff', textDecoration: 'none' }}
               >
                 Контакты
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
+
+        <HeaderAuth />
       </div>
     </header>
   );
