@@ -2,18 +2,13 @@ import { Header } from '@/components';
 import { ModalProvider } from '@/context/modal';
 import '@ant-design/v5-patch-for-react-19';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Roboto_Mono } from 'next/font/google';
 import React from 'react';
 import '../styles/index.scss';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const robotoMono = Roboto_Mono({
+  variable: '--font-roboto-mono',
+  subsets: ['latin', 'cyrillic'],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${robotoMono.variable}`}>
         <ModalProvider>
           <Header />
           {children}

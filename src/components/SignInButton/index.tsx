@@ -1,5 +1,6 @@
 'use client';
 
+import { AuthForm } from '@/components';
 import { useModal } from '@/hooks/useModal';
 import '@ant-design/v5-patch-for-react-19';
 import React, { FC } from 'react';
@@ -9,13 +10,7 @@ export const SignInButton: FC = () => {
   const { showModal } = useModal();
 
   const handleLoginClick = () => {
-    showModal(
-      <div>
-        <h3>Форма Входа</h3>
-        <p>Здесь будет форма для входа</p>
-      </div>,
-      'Вход'
-    );
+    showModal(<AuthForm />, 'Вход');
   };
 
   return (

@@ -6,13 +6,13 @@ import React, { FC, ReactNode, createContext, useState } from 'react';
 interface ModalContextType {
   showModal: (content: ReactNode, title?: string) => void;
   closeModal: () => void;
+  updateTitle: (newTitle: string) => void;
 }
-// Инициализация контекста
+
 export const ModalContext = createContext<ModalContextType | undefined>(
   undefined
 );
 
-// Провайдер для глобального контекста
 export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<ReactNode | null>(null);
@@ -30,8 +30,12 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setModalTitle(undefined);
   };
 
+  const updateTitle = (newTitle: string) => {
+    setModalTitle(newTitle);
+  };
+
   return (
-    <ModalContext.Provider value={{ showModal, closeModal }}>
+    <ModalContext.Provider value={{ showModal, closeModal, updateTitle }}>
       {children}
       <CustomModal
         title={modalTitle}
