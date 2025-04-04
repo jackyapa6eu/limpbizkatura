@@ -3,7 +3,7 @@ import { Rule } from 'antd/lib/form';
 export const VALIDATION_MESSAGES = {
   REQUIRED: 'Обязательное поле.',
   EMAIL: 'Введите корректный email адрес.',
-};
+} as const;
 
 export const VALIDATION_RULES = {
   REQUIRED: (msg?: string): Rule => ({

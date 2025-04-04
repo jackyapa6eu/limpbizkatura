@@ -1,3 +1,4 @@
+import { TModalSize } from '@/context/modal';
 import React, { FC, ReactNode } from 'react';
 import { Modal } from 'antd';
 import classNames from 'classnames';
@@ -15,7 +16,7 @@ interface GlobalModalProps {
   onClose: () => void;
   title?: string;
   children: ReactNode;
-  size?: keyof typeof MODAL_SIZES;
+  size?: TModalSize;
 }
 
 export const CustomModal: FC<GlobalModalProps> = ({
