@@ -4,9 +4,11 @@ import { VALIDATION_MESSAGES, VALIDATION_RULES } from '@/const/validation';
 import { AuthContext } from '@/context/user';
 import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
+import { updateData } from '@/lib/firebase/pushData';
+import { registerWithAuth } from '@/lib/firebase/signUp';
 import { CustomButton } from '@/ui';
-import React, { FC, useContext } from 'react';
-import { Form, FormProps, Input } from 'antd';
+import React, { FC, useContext, useEffect } from 'react';
+import { Form, FormProps, Input, notification } from 'antd';
 import classNames from 'classnames';
 
 interface AuthFormData {
@@ -20,7 +22,7 @@ interface SignUpFormProps {
 }
 
 export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
-  const { updateTitle } = useModal();
+  const { updateTitle, closeModal } = useModal();
   const [form] = Form.useForm();
   const { isFormValid, handleValuesChange } = useFormValidation(form);
 
@@ -32,9 +34,20 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
 
   const { setUser } = auth;
 
-  const onFinish = (values: AuthFormData) => {
-    console.log('Введенные данные:', values);
-    setUser({ name: 'Eugene', email: 'yapa6eu@gmail.com', role: 'admin' });
+  const onFinish = async (values: AuthFormData) => {
+    try {
+      const userData = await registerWithAuth(values);
+      const data = {
+        email: userData?.user.email,
+        uid: userData?.user.uid,
+      };
+      await updateData(`users/${userData?.user.uid}`, data);
+      setUser(data);
+      notification.success({ message: 'Регистрация прошла успешно.' });
+      closeModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onFinishFailed: FormProps['onFinishFailed'] = (errorInfo: unknown) => {
@@ -70,6 +83,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
       <Form.Item
         label="Пароль"
         name="password"
+        dependencies={['confirmPassword']}
         className={classNames('form__item')}
         rules={[VALIDATION_RULES.REQUIRED()]}
       >

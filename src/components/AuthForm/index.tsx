@@ -5,7 +5,7 @@ import { SignUpForm } from '@/components/AuthForm/SignUpForm';
 import React, { FC, useState } from 'react';
 
 interface AuthFormProps {
-  signIn: boolean;
+  signIn?: boolean;
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ signIn = true }) => {

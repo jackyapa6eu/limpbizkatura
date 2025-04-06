@@ -4,9 +4,11 @@ import { VALIDATION_RULES } from '@/const/validation';
 import { AuthContext } from '@/context/user';
 import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
+import { getData } from '@/lib/firebase/getData';
+import { signInWithAuth } from '@/lib/firebase/signIn';
 import { CustomButton } from '@/ui';
 import React, { FC, useContext } from 'react';
-import { Form, FormProps, Input } from 'antd';
+import { Form, FormProps, Input, notification } from 'antd';
 import classNames from 'classnames';
 
 interface AuthFormData {
@@ -19,7 +21,7 @@ interface SignInFormProps {
 }
 
 export const SignInForm: FC<SignInFormProps> = ({ setIsSignInAction }) => {
-  const { updateTitle } = useModal();
+  const { updateTitle, closeModal } = useModal();
   const [form] = Form.useForm();
   const { isFormValid, handleValuesChange } = useFormValidation(form);
   const auth = useContext(AuthContext);
@@ -30,9 +32,16 @@ export const SignInForm: FC<SignInFormProps> = ({ setIsSignInAction }) => {
 
   const { setUser } = auth;
 
-  const onFinish = (values: AuthFormData) => {
-    console.log('Введенные данные:', values);
-    setUser({ name: 'Eugene', email: 'yapa6eu@gmail.com', role: 'admin' });
+  const onFinish = async (values: AuthFormData) => {
+    try {
+      const userData = await signInWithAuth(values);
+      const data = await getData(`users/${userData?.user.uid}`);
+      setUser(data);
+      notification.success({ message: 'Авторизация прошла успешно.' });
+      closeModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onFinishFailed: FormProps['onFinishFailed'] = (errorInfo: unknown) => {

@@ -2,15 +2,16 @@
 
 import React, { FC, ReactNode, createContext, useState } from 'react';
 
-interface User {
-  name: string;
-  email: string;
-  role: 'user' | 'admin';
+interface IUser {
+  // name: string;
+  email?: string | null;
+  uid?: string;
+  // role: 'user' | 'admin';
 }
 
 interface AuthContextType {
-  user: User | null;
-  setUser: (user: User) => void;
+  user: IUser | null;
+  setUser: (user: IUser) => void;
   logout: () => void;
 }
 
@@ -19,9 +20,9 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUserState] = useState<User | null>(null);
+  const [user, setUserState] = useState<IUser | null>(null);
 
-  const setUser = (user: User) => {
+  const setUser = (user: IUser) => {
     setUserState(user);
   };
 

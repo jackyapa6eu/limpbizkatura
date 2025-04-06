@@ -1,4 +1,7 @@
-import { Header } from '@/components';
+import { Header, SearchParamsHandler } from '@/components';
+import { InitFirebase } from '@/components/InitFirebase';
+import { ModalProvider } from '@/context/modal';
+import { AuthProvider } from '@/context/user';
 import '@ant-design/v5-patch-for-react-19';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
@@ -23,6 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${robotoMono.variable}`}>
+        <InitFirebase />
+        <AuthProvider>
+          <ModalProvider>
+            <SearchParamsHandler />
+          </ModalProvider>
+        </AuthProvider>
         <Header />
         {children}
       </body>
