@@ -1,9 +1,8 @@
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
-interface CustomLinkProps {
-  href: string;
+interface CustomLinkProps extends LinkProps {
   isExternal?: boolean;
   asButton?: boolean;
   className?: string;
@@ -16,6 +15,7 @@ export const CustomLink: FC<CustomLinkProps> = ({
   asButton = false,
   className,
   children,
+  ...linkProps
 }) => {
   const baseStyles = 'link';
   const buttonStyles = 'button';
@@ -25,9 +25,11 @@ export const CustomLink: FC<CustomLinkProps> = ({
   );
 
   if (isExternal) {
+    const externalLink = typeof href === 'string' ? href : href.toString();
+
     return (
       <a
-        href={href}
+        href={externalLink}
         target="_blank"
         rel="noopener noreferrer"
         className={mergedClassName}
@@ -38,7 +40,7 @@ export const CustomLink: FC<CustomLinkProps> = ({
   }
 
   return (
-    <Link href={href} className={mergedClassName}>
+    <Link href={href} className={mergedClassName} {...linkProps}>
       {children}
     </Link>
   );

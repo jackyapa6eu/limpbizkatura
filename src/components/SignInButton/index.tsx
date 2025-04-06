@@ -3,9 +3,9 @@
 import { AuthForm } from '@/components';
 import { MODAL_SIZES } from '@/components/CustomModal';
 import { useModal } from '@/hooks/useModal';
+import { CustomButton } from '@/ui';
 import '@ant-design/v5-patch-for-react-19';
 import React, { FC } from 'react';
-import { Button } from 'antd';
 
 export const SignInButton: FC = () => {
   const { showModal } = useModal();
@@ -16,9 +16,9 @@ export const SignInButton: FC = () => {
 
   return (
     <div>
-      <Button onClick={handleLoginClick} type="primary">
+      <CustomButton onClick={handleLoginClick} type="primary">
         Вход
-      </Button>
+      </CustomButton>
     </div>
   );
 };

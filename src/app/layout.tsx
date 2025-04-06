@@ -1,5 +1,4 @@
 import { Header } from '@/components';
-import { ModalProvider } from '@/context/modal';
 import '@ant-design/v5-patch-for-react-19';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
@@ -24,10 +23,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${robotoMono.variable}`}>
-        <ModalProvider>
-          <Header />
-          {children}
-        </ModalProvider>
+        <Header />
+        {children}
       </body>
     </html>
   );

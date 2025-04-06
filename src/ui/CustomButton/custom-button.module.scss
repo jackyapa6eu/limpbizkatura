@@ -1,0 +1,10 @@
+.button {
+
+  &.link {
+    border: none;
+    text-decoration: underline;
+    color: inherit;
+    background: none;
+    padding: 0;
+  }
+}

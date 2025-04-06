@@ -1,9 +1,12 @@
 'use client';
 
 import { VALIDATION_RULES } from '@/const/validation';
+import { AuthContext } from '@/context/user';
+import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
-import React, { FC } from 'react';
-import { Button, Form, FormProps, Input } from 'antd';
+import { CustomButton } from '@/ui';
+import React, { FC, useContext } from 'react';
+import { Form, FormProps, Input } from 'antd';
 import classNames from 'classnames';
 
 interface AuthFormData {
@@ -17,8 +20,19 @@ interface SignInFormProps {
 
 export const SignInForm: FC<SignInFormProps> = ({ setIsSignInAction }) => {
   const { updateTitle } = useModal();
+  const [form] = Form.useForm();
+  const { isFormValid, handleValuesChange } = useFormValidation(form);
+  const auth = useContext(AuthContext);
+
+  if (!auth) {
+    throw new Error('AuthContext должен быть использован внутри AuthProvider');
+  }
+
+  const { setUser } = auth;
+
   const onFinish = (values: AuthFormData) => {
     console.log('Введенные данные:', values);
+    setUser({ name: 'Eugene', email: 'yapa6eu@gmail.com', role: 'admin' });
   };
 
   const onFinishFailed: FormProps['onFinishFailed'] = (errorInfo: unknown) => {
@@ -32,11 +46,13 @@ export const SignInForm: FC<SignInFormProps> = ({ setIsSignInAction }) => {
 
   return (
     <Form
+      form={form}
       name="authForm"
       initialValues={{ remember: true }}
       layout="vertical"
       labelAlign="left"
       onFinish={onFinish}
+      onValuesChange={handleValuesChange}
       onFinishFailed={onFinishFailed}
       className={classNames('form')}
     >
@@ -59,15 +75,19 @@ export const SignInForm: FC<SignInFormProps> = ({ setIsSignInAction }) => {
       </Form.Item>
 
       <div className={classNames('form__buttons-container')}>
-        <Button type="primary" htmlType="submit">
+        <CustomButton type="primary" htmlType="submit" disabled={!isFormValid}>
           Войти
-        </Button>
+        </CustomButton>
       </div>
       <p>
         Еще нет аккаунта?{' '}
-        <Button htmlType="button" onClick={handleSetIsSignInAction}>
-          Зарегистрироваться
-        </Button>{' '}
+        <CustomButton
+          type="link"
+          htmlType="button"
+          onClick={handleSetIsSignInAction}
+        >
+          Регистрация
+        </CustomButton>{' '}
       </p>
     </Form>
   );

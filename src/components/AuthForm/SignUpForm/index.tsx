@@ -1,9 +1,12 @@
 'use client';
 
-import { VALIDATION_RULES } from '@/const/validation';
+import { VALIDATION_MESSAGES, VALIDATION_RULES } from '@/const/validation';
+import { AuthContext } from '@/context/user';
+import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
-import React, { FC } from 'react';
-import { Button, Form, FormProps, Input } from 'antd';
+import { CustomButton } from '@/ui';
+import React, { FC, useContext } from 'react';
+import { Form, FormProps, Input } from 'antd';
 import classNames from 'classnames';
 
 interface AuthFormData {
@@ -18,8 +21,20 @@ interface SignUpFormProps {
 
 export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
   const { updateTitle } = useModal();
+  const [form] = Form.useForm();
+  const { isFormValid, handleValuesChange } = useFormValidation(form);
+
+  const auth = useContext(AuthContext);
+
+  if (!auth) {
+    throw new Error('AuthContext должен быть использован внутри AuthProvider');
+  }
+
+  const { setUser } = auth;
+
   const onFinish = (values: AuthFormData) => {
     console.log('Введенные данные:', values);
+    setUser({ name: 'Eugene', email: 'yapa6eu@gmail.com', role: 'admin' });
   };
 
   const onFinishFailed: FormProps['onFinishFailed'] = (errorInfo: unknown) => {
@@ -33,12 +48,14 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
 
   return (
     <Form
+      form={form}
       name="authForm"
       initialValues={{ remember: true }}
       layout="vertical"
       labelAlign="left"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      onValuesChange={handleValuesChange}
       className={classNames('form')}
     >
       <Form.Item
@@ -66,13 +83,15 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
         className={classNames('form__item')}
         hasFeedback
         rules={[
-          { required: true, message: 'Пожалуйста, подтвердите пароль!' },
+          VALIDATION_RULES.REQUIRED(VALIDATION_MESSAGES.PASSWORD_REQUIRED),
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('Пароли не совпадают'));
+              return Promise.reject(
+                new Error(VALIDATION_MESSAGES.PASSWORDS_NOT_MATCH)
+              );
             },
           }),
         ]}
@@ -81,15 +100,19 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
       </Form.Item>
 
       <div className={classNames('form__buttons-container')}>
-        <Button type="primary" htmlType="submit">
+        <CustomButton type="primary" htmlType="submit" disabled={!isFormValid}>
           Регистрация
-        </Button>
+        </CustomButton>
       </div>
       <p>
         Есть аккаунт?{' '}
-        <Button htmlType="button" onClick={handleSetIsSignInAction}>
+        <CustomButton
+          type="link"
+          htmlType="button"
+          onClick={handleSetIsSignInAction}
+        >
           Войти
-        </Button>{' '}
+        </CustomButton>
       </p>
     </Form>
   );

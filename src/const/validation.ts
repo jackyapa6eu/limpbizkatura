@@ -2,7 +2,9 @@ import { Rule } from 'antd/lib/form';
 
 export const VALIDATION_MESSAGES = {
   REQUIRED: 'Обязательное поле.',
+  PASSWORD_REQUIRED: 'Пожалуйста, подтвердите пароль!',
   EMAIL: 'Введите корректный email адрес.',
+  PASSWORDS_NOT_MATCH: 'Пароли не совпадают',
 } as const;
 
 export const VALIDATION_RULES = {

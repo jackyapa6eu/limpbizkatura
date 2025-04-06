@@ -1,7 +1,6 @@
 import { ModalContext } from '@/context/modal';
 import { useContext } from 'react';
 
-// Хук для работы с состоянием модального окна.
 export const useModal = () => {
   const context = useContext(ModalContext);
   if (!context) {

@@ -1,33 +1,35 @@
 import React, { FC } from 'react';
-import { Button } from 'antd';
+import { Button, ButtonProps } from 'antd';
 import classNames from 'classnames';
 import styles from './custom-button.module.scss';
 
-type ButtonType = 'primary' | 'link' | 'outlined';
-
-interface CustomButtonProps {
-  type?: 'button' | 'submit' | 'reset';
-  buttonType?: ButtonType;
-  onClick?: () => void;
+interface CustomButtonProps extends ButtonProps {
+  htmlType?: 'button' | 'submit' | 'reset';
   className?: string;
-  children: React.ReactNode;
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
-  type = 'button',
-  buttonType = 'primary',
+  htmlType = 'button',
+  type = 'default',
+  children,
   onClick,
   className,
-  children,
+  ...btnProps
 }) => {
-  const buttonClass = classNames(styles.button, styles[buttonType], className);
+  const buttonClass = classNames(styles.button, styles[type], className);
 
-  const handleOnClick = () => {
-    if (onClick) onClick();
+  const handleOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (onClick) onClick(event);
   };
 
   return (
-    <Button htmlType={type} className={buttonClass} onClick={handleOnClick}>
+    <Button
+      htmlType={htmlType}
+      type={type}
+      className={buttonClass}
+      onClick={handleOnClick}
+      {...btnProps}
+    >
       {children}
     </Button>
   );
