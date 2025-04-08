@@ -1,13 +1,13 @@
 'use client';
 
 import { VALIDATION_RULES } from '@/const/validation';
-import { AuthContext } from '@/context/user';
+import { useAuth } from '@/context/user';
 import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
 import { getData } from '@/lib/firebase/getData';
 import { signInWithAuth } from '@/lib/firebase/signIn';
 import { CustomButton } from '@/ui';
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { Form, FormProps, Input, notification } from 'antd';
 import classNames from 'classnames';
 
@@ -24,19 +24,14 @@ export const SignInForm: FC<SignInFormProps> = ({ setIsSignInAction }) => {
   const { updateTitle, closeModal } = useModal();
   const [form] = Form.useForm();
   const { isFormValid, handleValuesChange } = useFormValidation(form);
-  const auth = useContext(AuthContext);
 
-  if (!auth) {
-    throw new Error('AuthContext должен быть использован внутри AuthProvider');
-  }
-
-  const { setUser } = auth;
+  const { logIn } = useAuth();
 
   const onFinish = async (values: AuthFormData) => {
     try {
       const userData = await signInWithAuth(values);
       const data = await getData(`users/${userData?.user.uid}`);
-      setUser(data);
+      logIn(data);
       notification.success({ message: 'Авторизация прошла успешно.' });
       closeModal();
     } catch (err) {

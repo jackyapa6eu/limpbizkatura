@@ -1,13 +1,13 @@
 'use client';
 
 import { VALIDATION_MESSAGES, VALIDATION_RULES } from '@/const/validation';
-import { AuthContext } from '@/context/user';
+import { useAuth } from '@/context/user';
 import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
 import { updateData } from '@/lib/firebase/pushData';
 import { registerWithAuth } from '@/lib/firebase/signUp';
 import { CustomButton } from '@/ui';
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Form, FormProps, Input, notification } from 'antd';
 import classNames from 'classnames';
 
@@ -26,13 +26,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
   const [form] = Form.useForm();
   const { isFormValid, handleValuesChange } = useFormValidation(form);
 
-  const auth = useContext(AuthContext);
-
-  if (!auth) {
-    throw new Error('AuthContext должен быть использован внутри AuthProvider');
-  }
-
-  const { setUser } = auth;
+  const { logIn } = useAuth();
 
   const onFinish = async (values: AuthFormData) => {
     try {
@@ -42,7 +36,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
         uid: userData?.user.uid,
       };
       await updateData(`users/${userData?.user.uid}`, data);
-      setUser(data);
+      // logIn(data);
       notification.success({ message: 'Регистрация прошла успешно.' });
       closeModal();
     } catch (err) {

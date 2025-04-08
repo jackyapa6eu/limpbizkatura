@@ -29,11 +29,9 @@ export const registerWithAuth = async ({
       email,
       password
     );
-    console.log('Пользователь зарегистрирован:', userCredential.user);
     return userCredential;
   } catch (error) {
     if (error instanceof FirebaseError) {
-      console.error('Firebase ошибка регистрации:', error.code, error.message);
       switch (error.code) {
         case ERROR_CODES.EMAIL_EXISTS.CODE:
           notification.error({
@@ -52,7 +50,6 @@ export const registerWithAuth = async ({
         `Ошибка регистрации: ${error.message} (код: ${error.code})`
       );
     }
-    console.error('Неизвестная ошибка регистрации:', error);
     throw new Error('Неизвестная ошибка регистрации');
   }
 };

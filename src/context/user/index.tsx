@@ -1,38 +1,26 @@
 'use client';
 
-import React, { FC, ReactNode, createContext, useState } from 'react';
-
-interface IUser {
-  // name: string;
-  email?: string | null;
-  uid?: string;
-  // role: 'user' | 'admin';
-}
+import { IUser, authStore } from '@/store/user';
+import React, { FC, ReactNode, createContext, useContext } from 'react';
 
 interface AuthContextType {
   user: IUser | null;
-  setUser: (user: IUser) => void;
-  logout: () => void;
+  logIn: (user: IUser | null) => void;
+  logOut: () => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
+const AuthStoreContext = createContext(authStore);
+
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUserState] = useState<IUser | null>(null);
-
-  const setUser = (user: IUser) => {
-    setUserState(user);
-  };
-
-  const logout = () => {
-    setUserState(null);
-  };
-
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthStoreContext.Provider value={authStore}>
       {children}
-    </AuthContext.Provider>
+    </AuthStoreContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthStoreContext);

@@ -26,8 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${robotoMono.variable}`}>
-        <InitFirebase />
         <AuthProvider>
+          <InitFirebase />
           <ModalProvider>
             <SearchParamsHandler />
           </ModalProvider>

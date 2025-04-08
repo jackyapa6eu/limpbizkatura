@@ -29,11 +29,9 @@ export const signInWithAuth = async ({
       email,
       password
     );
-    console.log('Пользователь вошел:', userCredential.user);
     return userCredential;
   } catch (error) {
     if (error instanceof FirebaseError) {
-      console.error('Firebase ошибка авторизации:', error.code, error.message);
       switch (error.code) {
         case ERROR_CODES.EMAIL_EXISTS.CODE:
           notification.error({
@@ -45,7 +43,6 @@ export const signInWithAuth = async ({
         `Ошибка авторизации: ${error.message} (код: ${error.code})`
       );
     }
-    console.error('Неизвестная ошибка авторизации:', error);
     throw new Error('Неизвестная ошибка авторизации');
   }
 };

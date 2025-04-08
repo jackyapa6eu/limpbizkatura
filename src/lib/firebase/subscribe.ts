@@ -1,17 +1,19 @@
 import { onValue, ref } from 'firebase/database';
 import { database } from './index';
 
-export function subscribeToData(path: string, callback: (data: any) => void) {
+export function subscribeToData<T>(
+  path: string,
+  callback: (data: T | null) => void
+): () => void {
   const dbRef = ref(database, path);
 
   const unsubscribe = onValue(dbRef, (snapshot) => {
     if (snapshot.exists()) {
-      callback(snapshot.val());
+      callback(snapshot.val() as T);
     } else {
       callback(null);
     }
   });
 
-  // Вернуть функцию для отмены подписки
   return unsubscribe;
 }
