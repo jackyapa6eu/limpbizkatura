@@ -1,6 +1,10 @@
+'use client';
+
 import Link, { LinkProps } from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { FC } from 'react';
 import classNames from 'classnames';
+import styles from './custom-link.module.scss';
 
 interface CustomLinkProps extends LinkProps {
   isExternal?: boolean;
@@ -17,11 +21,13 @@ export const CustomLink: FC<CustomLinkProps> = ({
   children,
   ...linkProps
 }) => {
-  const baseStyles = 'link';
-  const buttonStyles = 'button';
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
   const mergedClassName = classNames(
-    asButton ? buttonStyles : baseStyles,
-    className
+    asButton ? styles.customLink_type_button : styles.customLink_type_link,
+    className,
+    { [styles.customLink_active]: isActive }
   );
 
   if (isExternal) {

@@ -1,0 +1,9 @@
+@use 'sass:map';
+@use '@/styles/variables';
+
+
+.headerAuth {
+  display: flex;
+  align-items: center;
+  gap: map.get(variables.$spacings, sm);
+}

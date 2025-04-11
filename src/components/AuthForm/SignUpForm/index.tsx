@@ -1,7 +1,7 @@
 'use client';
 
 import { VALIDATION_MESSAGES, VALIDATION_RULES } from '@/const/validation';
-import { useAuth } from '@/context/user';
+// import { useAuth } from '@/context/user';
 import { useFormValidation } from '@/hooks/useFormIsValid';
 import { useModal } from '@/hooks/useModal';
 import { updateData } from '@/lib/firebase/pushData';
@@ -26,7 +26,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ setIsSignInAction }) => {
   const [form] = Form.useForm();
   const { isFormValid, handleValuesChange } = useFormValidation(form);
 
-  const { logIn } = useAuth();
+  // const { logIn } = useAuth();
 
   const onFinish = async (values: AuthFormData) => {
     try {

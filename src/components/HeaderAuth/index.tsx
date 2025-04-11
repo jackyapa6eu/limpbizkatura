@@ -7,6 +7,7 @@ import { signOutAuth } from '@/lib/firebase/signOut';
 import { CustomButton } from '@/ui';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
+import style from './header-auth.module.scss';
 
 export const HeaderAuth: FC = observer(() => {
   const { user, logOut } = useAuth();
@@ -25,7 +26,7 @@ export const HeaderAuth: FC = observer(() => {
       {!user ? (
         <SignInButton />
       ) : (
-        <div>
+        <div className={style.headerAuth}>
           <span>{user.email}</span>
           <CustomButton onClick={handleLogOut} type="primary" htmlType="button">
             Выход

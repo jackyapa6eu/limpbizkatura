@@ -2,8 +2,26 @@
 @use '@/styles/variables';
 @use '@/styles/mixins';
 
-.container {
-  background-color: map.get(variables.$colors, background);
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: map.get(variables.$spacings, md);
+  background-color: map.get(variables.$colors, moonstone);
   color: map.get(variables.$colors, text);
   padding: 1rem;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: map.get(variables.$spacings, md);
+  }
+
+  &__navigation {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: map.get(variables.$spacings, sm);
+  }
 }
