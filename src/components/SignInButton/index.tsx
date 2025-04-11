@@ -1,7 +1,5 @@
 'use client';
 
-import { AuthForm } from '@/components';
-import { MODAL_SIZES } from '@/components/CustomModal';
 import { MODALS_NAMES } from '@/context/modal';
 import { useModal } from '@/hooks/useModal';
 import { CustomButton } from '@/ui';

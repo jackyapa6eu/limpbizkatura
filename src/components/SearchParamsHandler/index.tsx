@@ -22,7 +22,7 @@ export const SearchParamsHandler = observer(() => {
         openModal(modalName as keyof typeof MODALS_NAMES);
       removeSearchParam('modal');
     }
-  }, [searchParams]);
+  }, [searchParams, allSearchParams, openModal, removeSearchParam]);
 
   return null;
 });

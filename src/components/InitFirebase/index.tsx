@@ -21,7 +21,7 @@ export const InitFirebase = () => {
       if (userData) logIn(data);
       else logOut();
     });
-  }, []);
+  }, [auth, logIn, logOut]);
 
   return null;
 };
