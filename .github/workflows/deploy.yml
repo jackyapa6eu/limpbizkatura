@@ -36,4 +36,4 @@ jobs:
 
         run: |
           echo "Starting deployment..."
-          vercel --prod --yes
+          vercel --prod --yes --token=$VERCEL_TOKEN

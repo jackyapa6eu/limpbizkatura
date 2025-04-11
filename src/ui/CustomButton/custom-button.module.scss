@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use '@/styles/variables';
+@use '@/styles/mixins';
+
 .button {
 
   &.link {
@@ -6,5 +10,14 @@
     color: inherit;
     background: none;
     padding: 0;
+  }
+
+  &.primary {
+    background-color: map.get(variables.$colors, secondary-text);
+  }
+
+  &.primary:hover {
+    background-color: map.get(variables.$colors, secondary-text)!important;
+    opacity: 0.8;
   }
 }

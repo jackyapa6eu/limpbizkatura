@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '@/styles/variables';
+@use '@/styles/mixins';
+
+.mobileMenu {
+  display: none;
+  &__icon {
+    font-size: 24px;
+    color: map.get(variables.$colors, black);
+    transition: all .3s ease;
+    cursor: pointer;
+
+    &:hover {
+      color: map.get(variables.$colors, white);
+    }
+  }
+
+  @include mixins.tablet {
+    display: block;
+  }
+}

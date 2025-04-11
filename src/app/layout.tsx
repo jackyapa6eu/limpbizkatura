@@ -1,5 +1,5 @@
 import { Header, SearchParamsHandler } from '@/components';
-import { InitFirebase } from '@/components/InitFirebase';
+import { InitFirebase } from '@/components';
 import { ModalProvider } from '@/context/modal';
 import { AuthProvider } from '@/context/user';
 import '@/styles/index.scss';
@@ -25,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Limpbizkatura</title>
+      </head>
       <body className={`${robotoMono.variable}`}>
         <AuthProvider>
           <InitFirebase />
