@@ -22,7 +22,8 @@ a {
   color: inherit;
 }
 
-[class^='ant-'], [class*=' ant-'] {
+[class^='ant-'],
+[class*=' ant-'] {
   font-family: var(--font-family), monospace !important;
 }
 

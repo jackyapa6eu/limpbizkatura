@@ -7,7 +7,7 @@
   &__icon {
     font-size: 24px;
     color: map.get(variables.$colors, black);
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
 
     &:hover {
