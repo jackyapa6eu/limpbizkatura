@@ -1,7 +1,4 @@
-import { HeaderAuth } from '@/components';
 import { HeaderRightContainer } from '@/components/Header/HeaderRightContainer';
-import { ROUTES } from '@/const/routes';
-import { AuthProvider } from '@/context/user';
 import { CustomLink } from '@/ui';
 import Image from 'next/image';
 import React, { FC } from 'react';

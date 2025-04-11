@@ -3,7 +3,6 @@
 @use '@/styles/mixins';
 
 .button {
-
   &.link {
     border: none;
     text-decoration: underline;
@@ -17,7 +16,7 @@
   }
 
   &.primary:hover {
-    background-color: map.get(variables.$colors, secondary-text)!important;
+    background-color: map.get(variables.$colors, secondary-text) !important;
     opacity: 0.8;
   }
 }

@@ -3,10 +3,10 @@
 @use '@/styles/mixins';
 
 .headerRightContainer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: map.get(variables.$spacings, md);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: map.get(variables.$spacings, md);
 
   &__navigation {
     display: flex;

@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { FC, useCallback, useMemo } from 'react';
 import { Dropdown } from 'antd';
-import classNames from 'classnames';
 import styles from './mobile-menu.module.scss';
 
 export const MobileMenu: FC = observer(() => {
