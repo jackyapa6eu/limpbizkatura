@@ -11,15 +11,14 @@ interface ModalContextType {
   openModal: (modalName: keyof typeof MODALS_NAMES) => void;
 }
 
-// Обновляется только этот объект.
 export const MODALS_DICTIONARY = {
   SIGN_IN: {
-    component: <AuthForm signIn={true} />,
+    component: () => <AuthForm signIn={true} />,
     title: 'Вход',
     size: MODAL_SIZES.SMALL,
   },
   SIGN_UP: {
-    component: <AuthForm />,
+    component: () => <AuthForm />,
     title: 'Регистрация',
     size: MODAL_SIZES.SMALL,
   },
@@ -59,7 +58,7 @@ export const ModalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       title: modalTitle,
       size: modalSize,
     } = MODALS_DICTIONARY[modalName];
-    showModal(component, title ?? modalTitle, size ?? modalSize);
+    showModal(component(), title ?? modalTitle, size ?? modalSize);
   };
 
   const showModal = (content: ReactNode, title?: string, size?: TModalSize) => {
