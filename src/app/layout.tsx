@@ -6,7 +6,7 @@ import '@/styles/index.scss';
 import '@ant-design/v5-patch-for-react-19';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 const robotoMono = Roboto_Mono({
   variable: '--font-roboto-mono',
@@ -29,7 +29,9 @@ export default function RootLayout({
         <AuthProvider>
           <InitFirebase />
           <ModalProvider>
-            <SearchParamsHandler />
+            <Suspense fallback={<div>Loading...</div>}>
+              <SearchParamsHandler />
+            </Suspense>
           </ModalProvider>
         </AuthProvider>
         <Header />
