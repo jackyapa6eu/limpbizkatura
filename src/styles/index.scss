@@ -43,3 +43,9 @@ a {
     gap: map.get(variables.$spacings, sm);
   }
 }
+
+.global {
+  &__link {
+    text-decoration: underline;
+  }
+}

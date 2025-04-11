@@ -7,7 +7,8 @@
   align-items: center;
   justify-content: space-between;
   gap: map.get(variables.$spacings, md);
-  background-color: map.get(variables.$colors, moonstone);
+  background-color: map.get(variables.$colors, moonstoneBg);
+
   color: map.get(variables.$colors, text);
   padding: 1rem;
 
@@ -18,10 +19,23 @@
     gap: map.get(variables.$spacings, md);
   }
 
-  &__navigation {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: map.get(variables.$spacings, sm);
+  &__logo {
+    &_size_full {
+      display: block;
+    }
+
+    &_size_small {
+      display: none;
+    }
+
+    @include mixins.mobile-md {
+      &_size_full {
+        display: none;
+      }
+
+      &_size_small {
+        display: block;
+      }
+    }
   }
 }

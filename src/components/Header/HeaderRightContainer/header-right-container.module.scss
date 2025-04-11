@@ -1,0 +1,28 @@
+@use 'sass:map';
+@use '@/styles/variables';
+@use '@/styles/mixins';
+
+.headerRightContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: map.get(variables.$spacings, md);
+
+  &__navigation {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: map.get(variables.$spacings, sm);
+  }
+
+  &__desktopContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: map.get(variables.$spacings, md);
+
+    @include mixins.tablet {
+      display: none;
+    }
+  }
+}
