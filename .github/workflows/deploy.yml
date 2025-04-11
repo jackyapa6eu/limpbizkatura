@@ -3,7 +3,6 @@ name: Deploy to Vercel
 on:
   workflow_dispatch:
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js environment
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.11.0'
@@ -20,8 +19,19 @@ jobs:
       - name: Install Vercel CLI
         run: npm install -g vercel
 
+      - name: Show Vercel CLI version
+        run: vercel --version
+
+      - name: Login to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          echo "Logging in with Vercel token..."
+          vercel login --token=$VERCEL_TOKEN
+
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          vercel --prod --yes
+          echo "Starting deployment..."
+          vercel --prod --yes --token=$VERCEL_TOKEN
