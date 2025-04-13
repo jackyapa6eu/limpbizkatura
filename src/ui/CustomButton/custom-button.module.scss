@@ -3,12 +3,18 @@
 @use '@/styles/mixins';
 
 .button {
+  transition: all 0.3s ease;
   &.link {
     border: none;
     text-decoration: underline;
-    color: inherit;
+    font-size: map.get(variables.$typography, font-size-base);
+    color: map.get(variables.$colors, primary-text);
     background: none;
     padding: 0;
+  }
+  &.link:hover {
+    opacity: 0.6;
+    color: map.get(variables.$colors, primary-text) !important;
   }
 
   &.primary {
@@ -17,6 +23,6 @@
 
   &.primary:hover {
     background-color: map.get(variables.$colors, secondary-text) !important;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 }

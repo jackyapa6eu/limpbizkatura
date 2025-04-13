@@ -25,7 +25,9 @@ export const HeaderRightContainer: FC = () => {
           </ul>
         </nav>
         <AuthProvider>
-          <HeaderAuth />
+          <ModalProvider>
+            <HeaderAuth />
+          </ModalProvider>
         </AuthProvider>
       </div>
     </div>

@@ -4,7 +4,7 @@ export interface IUser {
   // name: string;
   email?: string | null;
   uid?: string;
-  // role: 'user' | 'admin';
+  role: 'user' | 'admin';
 }
 
 class AuthStore {
