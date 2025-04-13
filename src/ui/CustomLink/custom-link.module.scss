@@ -1,4 +1,11 @@
+@use 'sass:map';
+@use '@/styles/variables';
+@use '@/styles/mixins';
+
 .customLink {
+  font-size: map.get(variables.$typography, font-size-base);
+  color: map.get(variables.$colors, primary-text);
+  transition: all 0.3s ease;
   &_type_link {
   }
 
@@ -7,5 +14,9 @@
 
   &_active {
     text-decoration: underline;
+  }
+
+  &:hover {
+    opacity: 0.6;
   }
 }
