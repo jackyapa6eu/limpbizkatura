@@ -1,45 +1,30 @@
-// import { getData } from '@/lib/firebase/getData';
+import { QuestionData } from '@/components/CreateQuestionForm';
+import { getData } from '@/lib/firebase/getData';
 import React from 'react';
 import styles from './home-page.module.scss';
 
+type Posts = {
+  [key: string]: QuestionData;
+};
+
 const Home = async () => {
-  // const data = await getData('/');
+  const posts: Posts = await getData('/posts');
 
   return (
     <div className={styles.home}>
       <section className={styles.home__content}>
-        <article>
-          Однажды в кафе на Ленинградском вокзале в Москве появился необычный
-          аппарат. Люди подходили к нему и пытались произнести определенное
-          слово. В случае неудачи они получали из аппарата плюшевого медведя,
-          игрушечную пчелу или накладную бороду. А что они планировали получить?
-        </article>
-        <article>
-          Герой фильма «Жареные зеленые помидоры» путешествовал по городам
-          Америки времен Великой депрессии и внимательно присматривался к
-          мелочам вокруг и даже под ногами. Какие предметы своей длиной помогали
-          герою определить уровень благосостояния в каждом городке?
-        </article>
-        <article>
-          Кто-то это делал на песке; кто-то – на винной этикетке; кто-то – на
-          записке; кто-то – на мешке с орехами; кто-то – на вазе. Кто-то это
-          делал традиционно, а кто-то – не делал вовсе. О ком речь и о чём речь?
-        </article>
-        <article>
-          В ноябре 2023 года дизайнеру Тацу Ниси удалось реализовать в Японии
-          необычный проект. Он придумал инсталляцию, которая представляла собой
-          небольшую уютную комнату с ковром, торшером и кроватью. Идея
-          заключалась в том, чтобы на один день вписать эту инсталляцию в
-          определенное место. Что за объект находится на этом месте?
-        </article>
-        <article>
-          Одно время возле наряженной новогодней елки ставили ведро с водой.
-          Какое изобретение 1882 года уменьшило необходимость в этом?
-        </article>
-        <article>
-          В Манчестере на крыше супермаркета Aldi создали парковку для визита 10
-          особых гостей. Для кого эта парковка?
-        </article>
+        {posts
+          ? Object.values(posts)
+              .sort((a, b) => b.created_at - a.created_at)
+              .map((post) => (
+                <article className={styles.home__post} key={post.id}>
+                  <div
+                    className={styles.home__postContent}
+                    dangerouslySetInnerHTML={{ __html: post.content || '' }}
+                  />
+                </article>
+              ))
+          : null}
       </section>
     </div>
   );

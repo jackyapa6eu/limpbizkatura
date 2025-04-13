@@ -2,7 +2,16 @@
 
 import { AuthForm, CustomModal } from '@/components';
 import { MODAL_SIZES } from '@/components/CustomModal';
+import dynamic from 'next/dynamic';
 import React, { FC, ReactNode, createContext, useState } from 'react';
+
+const CreateQuestionForm = dynamic(
+  () => import('@/components/CreateQuestionForm'),
+  {
+    ssr: false,
+    loading: () => <div>Загрузка формы...</div>,
+  }
+);
 
 interface ModalContextType {
   showModal: (content: ReactNode, title?: string, size?: TModalSize) => void;
@@ -21,6 +30,11 @@ export const MODALS_DICTIONARY = {
     component: () => <AuthForm />,
     title: 'Регистрация',
     size: MODAL_SIZES.SMALL,
+  },
+  CREATE_QUESTION: {
+    component: () => <CreateQuestionForm />,
+    title: 'Создать вопрос',
+    size: MODAL_SIZES.MEDIUM,
   },
 } as const;
 

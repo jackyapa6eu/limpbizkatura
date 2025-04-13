@@ -10,6 +10,17 @@
   padding: map.get(variables.$spacings, md);
   gap: map.get(variables.$spacings, md);
 
+  &__post {
+    padding: 25px;
+    background-color: rgba(34, 12, 16, 0.1);
+    width: 100%;
+  }
+
+  &__postContent {
+    padding: 25px;
+    background-color: white;
+  }
+
   &__content {
     width: 100%;
     display: flex;
@@ -19,5 +30,33 @@
     max-width: 768px;
     white-space: pre-line;
     gap: map.get(variables.$spacings, md);
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol {
+      margin: 0;
+      margin-bottom: 5px;
+      list-style: '-';
+      padding-left: 15px;
+
+      li {
+        padding-left: 5px;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 60vh;
+      margin: 0 auto;
+    }
   }
 }
