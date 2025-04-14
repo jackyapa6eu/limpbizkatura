@@ -19,6 +19,10 @@
   &__postContent {
     padding: 25px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 30vh;
   }
 
   &__content {
@@ -30,6 +34,9 @@
     max-width: 768px;
     white-space: pre-line;
     gap: map.get(variables.$spacings, md);
+    min-height: 30vh;
+
+
 
     h1,
     h2,
@@ -47,6 +54,29 @@
       li {
         padding-left: 5px;
       }
+    }
+
+    blockquote {
+      border-left: 5px solid #ccc;
+      background-color: #f9f9f9;
+      font-style: italic;
+      color: #555;
+    }
+
+    blockquote::before {
+      content: '“';
+      font-size: 2em;
+      line-height: 0.1em;
+      vertical-align: -0.4em;
+      color: #ccc;
+    }
+
+    blockquote::after {
+      content: '”';
+      font-size: 2em;
+      line-height: 0.1em;
+      vertical-align: -0.4em;
+      color: #ccc;
     }
 
     p {
